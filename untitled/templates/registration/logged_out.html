@@ -1,0 +1,14 @@
+{% extends 'registration/auth_message_base.html' %}
+
+{% block title %} Logout | MoviesSearch {% endblock %}
+
+{% block message_title %}
+    Logged out!
+{% endblock %}
+
+{% block message_foot %}
+    <p class="has-text-centered">
+        <a class="button is-link" href="{% url 'index:home' %}"> Back to site </a>
+        <a class="button is-success" href="{% url 'accounts:login' %}"> Login again </a>
+    </p>
+{% endblock %}

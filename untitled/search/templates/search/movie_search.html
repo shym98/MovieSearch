@@ -1,0 +1,74 @@
+{% extends 'search/search_base.html' %}
+
+{% block title %} Movie search | MoviesSearch {% endblock %}
+
+{% block form %}
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input is-medium is-rounded"
+                       type="text" name="title"
+                       placeholder="Title"/>
+            </div>
+            <div class="control">
+                <input class="button is-medium is-rounded is-info"
+                       type="submit" value="Search"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Year from </label>
+            <div class="control">
+                <input class="input" type="number" value = 1950 min = 1850 max = 2100 name="year_from"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Year to </label>
+            <div class="control">
+                <input class="input" type="number" value = 2020 min = 1850 max = 2100 name="year_to"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Genre </label>
+            <div class="control">
+                <div class="select">
+                    <select name="genre">
+                        <option selected>  --------- </option>
+                        <option>  Action </option>
+                        <option>  Adventure</option>
+                        <option>  Animation</option>
+                        <option>  Biography </option>
+                        <option>  Comedy </option>
+                        <option>  Crime </option>
+                        <option>  Documentary </option>
+                        <option>  Drama </option>
+                        <option>  Family </option>
+                        <option>  Fantasy </option>
+                        <option>  Film-Noir </option>
+                        <option>  Game-Show </option>
+                        <option>  History </option>
+                        <option>  Horror </option>
+                        <option>  Music	 </option>
+                        <option>  Musical </option>
+                        <option>  Mystery </option>
+                        <option>  News </option>
+                        <option>  Reality-TV </option>
+                        <option>  Romance </option>
+                        <option>  Sci-Fi </option>
+                        <option>  Sport	</option>
+                        <option>  Talk-Show </option>
+                        <option>  Thriller </option>
+                        <option>  War </option>
+                        <option>  Western </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

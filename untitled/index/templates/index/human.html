@@ -1,0 +1,97 @@
+{% extends 'index/base.html' %}
+ {% block title %} {{ human.full_name }} | MovieSearch {% endblock %}
+ {% block content %}
+     {% include 'index/navbar.html' %}
+     <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-narrow">
+                    {% if human.photo_link %}
+                        <img src="{{ human.photo_link }}" alt="Photo" width="250" height="350"/>
+                    {% else %}
+                        <div class="has-background-grey-lighter"
+                              style="width: 250px; height: 300px">
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="column">
+                    <h1 class="title"> {{ human.full_name }} </h1>
+                    <h2 class="subtitle">
+                        {{ human.birth_date }}
+                        {% if human.death_date %}
+                            - {{ human.death_date }}
+                        {% endif %}
+                    </h2>
+                     <div class="content">
+                        <p> <b> Professions: </b> {{ human.professions }} </p>
+                        <p> {{ human.biography }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     {% if human.films.count %}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    <span class="icon is-medium has-text-info">
+                        <i class="fas fa-film"></i>
+                    </span>
+                    <span> Films </span>
+                </h1>
+                 <div class="content">
+                    {% for film in human.films.all %}
+                        <p class="is-size-5">
+                            {{ film.title }} ({{ film.year }})
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+     {% if human.awards.count %}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    <span class="icon is-medium has-text-info">
+                        <i class="fas fa-award"></i>
+                    </span>
+                    <span> Awards </span>
+                </h1>
+                 {% for award in human.awards.all %}
+                    <div class="box">
+                        <h1 class="is-size-4"> {{ award.name }} ({{ award.category }}) </h1>
+                        <h2 class="is-size-7"> {{ award.type }} {{ award.date }} </h2>
+                        {{ award.description }}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+     <section class="section">
+        <div class="container">
+            <h1 class="title">
+                <span class="icon is-medium has-text-info">
+                    <i class="fas fa-link"></i>
+                </span>
+                <span> Sites </span>
+            </h1>
+             {% if human.imdb_link %}
+                <div class="is-size-5">
+                    <span class="icon has-text-danger">
+                        <i class="fab fa-imdb"></i>
+                    </span>
+                    <a href="{{ human.imdb_link }}"> IMDB </a>
+                </div>
+            {% endif %}
+             {% if human.rotten_link %}
+                <div class="is-size-5">
+                    <span class="icon has-text-danger">
+                        <i class="fas fa-film"></i>
+                    </span>
+                    <a href="{{ human.rotten_link }}"> RottenTomatoes </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+ {% endblock %}

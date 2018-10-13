@@ -1,0 +1,16 @@
+{% extends 'index/base.html' %}
+ {% block content %}
+     {% include 'index/navbar.html' %}
+     <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10-tablet is-7-desktop">
+                    {% block errors %} {% endblock %}
+                     <div class="box">
+                        {% block form %} {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ {% endblock %}

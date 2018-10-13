@@ -1,0 +1,39 @@
+{% extends 'index/base.html' %}
+
+{% block title %} MovieSearch {% endblock %}
+
+{% block content %}
+    <header class="hero is-medium is-primary is-bold">
+        <div class="hero-head">
+            {% include 'index/navbar.html' %}
+        </div>
+
+        <div class="hero-body has-text-centered">
+            <h1 class="title"> Movie Search </h1>
+            <h2 class="subtitle"> search engine </h2>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                <span class="icon is-medium has-text-info">
+                    <i class="fas fa-tag"></i>
+                </span>
+                <span> Latest </span>
+            </h1>
+
+            {% for movie in movies %}
+            <div class="box">
+                <h1 class="title">
+                    <a href="{% url 'index:movie' movie.id %}">
+                        {{ movie.title }} ({{ movie.release }})
+                    </a>
+                </h1>
+                <p> {{ movie.description }} </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

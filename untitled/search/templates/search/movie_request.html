@@ -1,0 +1,57 @@
+{% extends 'index/base.html' %}
+
+{% block title %} Movie request | MoviesSearch {% endblock %}
+
+{% block content %}
+
+    {% include 'index/navbar.html' %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title"> Movie request #{{ movierequest.id }} </h1>
+            <h2 class="subtitle is-italic">
+                <b> Status: </b>
+                {% if movierequest.ready %}
+                    <span class="has-text-success"> Ready </span>
+                {% else %}
+                    <span class="has-text-danger"> Not ready </span>
+                {% endif %}
+            </h2>
+
+            <div class="columns">
+                <div class="columns is-mobile">
+                <div class="column is-narrow has-text-weight-bold">
+                    <div> Title </div>
+                    <div> Year from </div>
+                    <div> Year to </div>
+                    <div> Genre </div>
+                </div>
+                <div class="column">
+                    <div> {{ movierequest.title | default:'-' }} </div>
+                    <div> {{ movierequest.year_from | default:'-' }} </div>
+                    <div> {{ movierequest.year_to | default:'-' }} </div>
+                    <div> {{ movierequest.genre | default:'-' }} </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title"> Results </h1>
+
+            {% for result in movierequest.movierequestresult_set.all %}
+                <div class="box">
+                    <h1 class="title">
+                        <a href="{% url 'index:movie' result.movie.id %}">
+                            {{ result.movie.title }} ({{ result.movie.release }})
+                        </a>
+                    </h1>
+                    <p> {{ result.movie.description }} </p>
+                </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+{% endblock %}

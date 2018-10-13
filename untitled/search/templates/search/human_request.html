@@ -1,0 +1,47 @@
+{% extends 'index/base.html' %}
+ {% block title %} Human request | MoviesSearch {% endblock %}
+ {% block content %}
+     {% include 'index/navbar.html' %}
+     <section class="section">
+        <div class="container">
+            <h1 class="title"> Human request #{{ humanrequest.id }} </h1>
+            <h2 class="subtitle is-italic">
+                <b> Status: </b>
+                {% if humanrequest.ready %}
+                    <span class="has-text-success"> Ready </span>
+                {% else %}
+                    <span class="has-text-danger"> Not ready </span>
+                {% endif %}
+            </h2>
+             <div class="columns is-mobile">
+                <div class="column is-narrow has-text-weight-bold">
+                    <div> Name </div>
+                    <div > Living year from </div>
+                    <div> Living year to </div>
+                    <div> Profession </div>
+                </div>
+                <div class="column">
+                    <div> {{ humanrequest.name | default:'-' }} </div>
+                    <div> {{ humanrequest.living_year_from | default:'-' }} </div>
+                    <div> {{ humanrequest.living_year_to | default:'-' }} </div>
+                    <div> {{ humanrequest.profession | default:'-' }} </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="section">
+        <div class="container">
+            <h1 class="title"> Results </h1>
+             {% for result in humanrequest.humanrequestresult_set.all %}
+                <div class="box">
+                    <h1 class="title">
+                        <a href="{% url 'index:human' result.human.id %}">
+                            {{ result.human.full_name }}
+                        </a>
+                    </h1>
+                    <p> {{ result.human.biography }} </p>
+                </div>
+            {% endfor %}
+         </div>
+    </section>
+ {% endblock %}

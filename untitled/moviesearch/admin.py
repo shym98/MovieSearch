@@ -1,0 +1,8 @@
+from django.contrib import admin
+from . import models
+
+
+admin.site.register(models.Movie)
+admin.site.register(models.Human)
+admin.site.register(models.Award)
+# Register your models here.

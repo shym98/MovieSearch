@@ -1,0 +1,25 @@
+{% extends 'index/base.html' %}
+
+{% block content %}
+
+    {% include 'index/navbar.html' %}
+
+    <section class="section">
+        <div class="container content">
+            <h1 class="title has-text-centered">
+                {% block message_title %} {% endblock %}
+            </h1>
+
+            <p>
+                {% block message %} {% endblock %}
+            </p>
+
+            {% block message_foot %}
+                <p class="has-text-centered">
+                    <a class="button is-link" href="{% url 'index:home' %}"> Back to site </a>
+                </p>
+            {% endblock %}
+        </div>
+    </section>
+
+{% endblock %}

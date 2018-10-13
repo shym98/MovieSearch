@@ -1,0 +1,72 @@
+{% extends 'moviesearch/base.html' %}
+
+{% block title %} MovieSearch {% endblock %}
+
+{% block content %}
+    <header class="hero is-medium is-primary is-bold">
+        <div class="hero-body has-text-centered">
+            <h1 class="title"> Movie Search </h1>
+            <h2 class="subtitle"> search engine </h2>
+        </div>
+    </header>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="title"> Title: </label>
+            <input id="title" type = "text" name = "title_field">
+        </p>
+        <p>
+            <label for="genre">Genre: </label>
+            <select id="genre" name = "genre_field">
+                <option selected> --------- </option>
+                <option>  Action </option>
+                <option>  Adventure</option>
+                <option>  Animation</option>
+                <option>  Biography </option>
+                <option>  Comedy </option>
+                <option>  Crime </option>
+                <option>  Documentary </option>
+                <option>  Drama </option>
+                <option>  Family </option>
+                <option>  Fantasy </option>
+                <option>  Film-Noir </option>
+                <option>  Game-Show </option>
+                <option>  History </option>
+                <option>  Horror </option>
+                <option>  Music	 </option>
+                <option>  Musical </option>
+                <option>  Mystery </option>
+                <option>  News </option>
+                <option>  Reality-TV </option>
+                <option>  Romance </option>
+                <option>  Sci-Fi </option>
+                <option>  Sport	</option>
+                <option>  Talk-Show </option>
+                <option>  Thriller </option>
+                <option>  War </option>
+                <option>  Western </option>
+            </select>
+        </p>
+        <p>
+            <label for="year"> Release years: </label>
+            <input type="number" id ="year" value = 1950 min = 1850 max = 2100 name = "start_year"> to <input type="number" id ="year" value = 1950 min = 1850 max = 2100 name = "end_year">
+        </p>
+        <input type="submit" value = "Search">
+    </form>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title"> Latest </h1>
+
+            {% for movie in movies %}
+            <div class="box">
+                <h3 class="title"> {{ movie.title }} ({{ movie.release.year }}) </h3>
+                <p> {{ movie.description }} </p>
+                <a href="{{ movie.trailer_link }}"> <img src="{{ movie.poster_link }}"> </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

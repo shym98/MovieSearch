@@ -1,0 +1,50 @@
+{% extends 'search/search_base.html' %}
+
+{% block title %} Human search | MoviesSearch {% endblock %}
+
+{% block form %}
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input is-medium is-rounded"
+                       type="text" name="name"
+                       placeholder="Name"/>
+            </div>
+            <div class="control">
+                <input class="button is-medium is-rounded is-info"
+                       type="submit" value="Search"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Living year from </label>
+            <div class="control">
+                <input class="input" type="number" value = 1950 min = 1850 max = 2018 name="year_from"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Living year to </label>
+            <div class="control">
+                <input class="input" type="number" value = 1950 min = 1850 max = 2018 name="year_to"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label"> Profession </label>
+            <div class="control">
+                <div class="select">
+                    <select name="profession">
+                        <option selected> Any </option>
+                        <option> Director </option>
+                        <option> Actor </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

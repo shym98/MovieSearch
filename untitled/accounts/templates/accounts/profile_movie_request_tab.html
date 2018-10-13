@@ -1,0 +1,20 @@
+{% if not user.movierequest_set.count %}
+    <h2 class="subtitle has-text-centered"> No requests </h2>
+{% endif %}
+ {% for movie_request in user.movierequest_set.all %}
+    <div class="box">
+        <h1 class="is-size-4">
+            <a href="{% url 'search:movie_request' movie_request.id %}">
+                Request #{{ movie_request.id }}
+            </a>
+        </h1>
+        <h2 class="is-italic">
+            <b> Status: </b>
+            {% if movie_request.ready %}
+                <span class="has-text-success"> Ready </span>
+            {% else %}
+                <span class="has-text-danger"> Not ready </span>
+            {% endif %}
+        </h2>
+    </div>
+{% endfor %}

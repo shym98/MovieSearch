@@ -1,0 +1,173 @@
+{% extends 'index/base.html' %}
+
+{% block title %} {{ movie.title }} | MovieSearch {% endblock %}
+
+{% block content %}
+
+    {% include 'index/navbar.html' %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-narrow">
+                    {% if movie.poster_link %}
+                        <img src="{{ movie.poster_link }}" alt="Poster" width="250" height="350"/>
+                    {% else %}
+                        <div class="has-background-grey-lighter"
+                              style="width: 250px; height: 300px">
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="column">
+                    <div class="columns">
+                        <div class="column">
+                            <h1 class="title"> {{ movie.title }} </h1>
+                            <h2 class="subtitle"> {{ movie.release.year }} </h2>
+                        </div>
+                        <div class="column is-narrow">
+                            {% if user_subscribed %}
+                                <a class="button is-danger" href="{% url 'search:movie_unsubscribe' movie.id %}"> Unsubscribe </a>
+                            {% else %}
+                                <a class="button is-info" href="{% url 'search:movie_subscribe' movie.id %}"> Subscribe </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="columns is-mobile">
+                        <div class="column is-narrow has-text-weight-bold">
+                            <div> Genre </div>
+                            <div> Length </div>
+                            <div> Age rating </div>
+                            <div> Budget </div>
+                            <div> World wide gross </div>
+                        </div>
+                        <div class="column">
+                            <div> {{ movie.genre | default:'-' }} </div>
+                            <div> {{ movie.length | default:'-' }} </div>
+                            <div> {{ movie.age_rating | default:'-' }} </div>
+                            <div> {{ movie.budget | default:'-' }} </div>
+                            <div> {{ movie.ww_gross | default:'-' }} </div>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <p> {{ movie.description }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if movie.crew.count %}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    <span class="icon is-medium has-text-info">
+                        <i class="fas fa-male"></i>
+                    </span>
+                    <span> Crew </span>
+                </h1>
+
+                <div class="columns is-multiline">
+                    <div class="column is-narrow">
+                        {% for crew in movie.crew.all %}
+                            <div> <b>{{ crew.human }}</b> </div>
+                        {% endfor %}
+                    </div>
+                    <div class="column">
+                        {% for crew in movie.crew.all %}
+                            <div> as {{ crew.role_name }} </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if movie.awards.count %}
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    <span class="icon is-medium has-text-info">
+                        <i class="fas fa-award"></i>
+                    </span>
+                    <span> Awards </span>
+                </h1>
+
+                {% for award in movie.awards.filter %}
+                    <div class="box">
+                        <h1 class="is-size-4"> {{ award.name }} ({{ award.category }}) </h1>
+                        <h2 class="is-size-7"> {{ award.type }} {{ award.date }} </h2>
+                        {{ award.description }}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                <span class="icon is-medium has-text-info">
+                    <i class="fas fa-link"></i>
+                </span>
+                <span> Sites </span>
+            </h1>
+
+            {% if movie.imdb_link %}
+                <div class="box">
+                    <div class="columns">
+                        <div class="column">
+                            <h1 class="is-size-4">
+                                <span class="icon has-text-danger">
+                                    <i class="fab fa-imdb"></i>
+                                </span>
+                                <a href="{{ movie.imdb_link }}"> IMDB </a>
+                            </h1>
+                        </div>
+                        <div class="column is-narrow">
+                            Site rating: {{ movie.imdb_rating }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if movie.rotten_link %}
+                <div class="box">
+                    <div class="columns">
+                        <div class="column">
+                            <h1 class="is-size-4">
+                                <span class="icon has-text-danger">
+                                    <i class="fas fa-film"></i>
+                                </span>
+                                <a href="{{ movie.rotten_link }}"> RottenTomatoes </a>
+                            </h1>
+                        </div>
+                        <div class="column is-narrow">
+                            Site rating: {{ movie.rotten_rating }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if movie.meta_link %}
+                <div class="box">
+                    <div class="columns">
+                        <div class="column">
+                            <h1 class="is-size-4">
+                                <span class="icon has-text-danger">
+                                    <i class="fas fa-film"></i>
+                                </span>
+                                <a href="{{ movie.meta_link }}"> Metacritic </a>
+                            </h1>
+                        </div>
+                        <div class="column is-narrow">
+                            Site rating: {{ movie.meta_rating }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

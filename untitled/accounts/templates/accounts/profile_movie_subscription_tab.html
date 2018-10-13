@@ -1,0 +1,12 @@
+{% if not user.moviesubscription_set.count %}
+    <h2 class="subtitle has-text-centered"> No subscriptions </h2>
+{% endif %}
+ {% for movie_subscription in user.moviesubscription_set.all %}
+    <div class="box">
+        <h1 class="is-size-4">
+            <a href="{% url 'index:movie' movie_subscription.movie.id %}">
+                {{ movie_subscription.movie.title }} ({{ movie_subscription.movie.release }})
+            </a>
+        </h1>
+    </div>
+{% endfor %}

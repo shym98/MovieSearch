@@ -1,0 +1,20 @@
+{% if not user.humanrequest_set.count %}
+    <h2 class="subtitle has-text-centered"> No requests </h2>
+{% endif %}
+ {% for human_request in user.humanrequest_set.all %}
+    <div class="box">
+        <h1 class="is-size-4">
+            <a href="{% url 'search:human_request' human_request.id %}">
+                Request #{{ human_request.id }}
+            </a>
+        </h1>
+        <h2 class="is-italic">
+            <b> Status: </b>
+            {% if human_request.ready %}
+                <span class="has-text-success"> Ready </span>
+            {% else %}
+                <span class="has-text-danger"> Not ready </span>
+            {% endif %}
+        </h2>
+    </div>
+{% endfor %}

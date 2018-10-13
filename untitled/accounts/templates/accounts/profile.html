@@ -1,0 +1,62 @@
+{% extends 'index/base.html' %}
+
+{% block title %} Profile: {{ user.username }} | MoviesSearch {% endblock %}
+
+{% block content %}
+
+    {% include 'index/navbar.html' %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="title">
+                        <span class="icon is-medium has-text-info">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <span> {{ user.username }}  </span>
+                    </h1>
+                    <h2 class="subtitle">
+                        <span class="icon is-medium has-text-info">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </span>
+                        <span> {{ user.email }}  </span>
+                    </h2>
+                </div>
+                <div class="column is-narrow">
+                    <a class="button is-warning" href="{% url 'password_change' %}"> Change password </a>
+                </div>
+                <div class="column is-narrow">
+                    <a class="button is-danger" href="{% url 'accounts:logout' %}"> Logout </a>
+                </div>
+            </div>
+
+            <div class="content">
+                <p>
+
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tabs is-boxed is-centered">
+                <ul>
+                    <li class="{% if tab_ind == 1 %}is-active{% endif %}">
+                        <a href="?tab=movie_request"> Movie requests </a>
+                    </li>
+                    <li class="{% if tab_ind == 2 %}is-active{% endif %}">
+                        <a href="?tab=human_request"> Human requests </a>
+                    </li>
+                    <li class="{% if tab_ind == 3 %}is-active{% endif %}">
+                        <a href="?tab=movie_subscription"> Movie subscriptions </a>
+                    </li>
+                </ul>
+            </div>
+
+            {% include profile_tab %}
+        </div>
+    </section>
+
+{% endblock %}
